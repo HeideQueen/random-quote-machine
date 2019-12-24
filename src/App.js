@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import QuoteBox from './components/quote-box/quote-box.component';
 
+import Spinner from 'react-bootstrap/Spinner';
+
 import './App.scss';
 
 const App = () => {
@@ -30,7 +32,11 @@ const App = () => {
 
     return <QuoteBox author={author} quote={quote} getNewQuote={getNewQuote} />;
   } else {
-    return <div>...loading</div>;
+    return (
+      <Spinner animation='border' variant='light'>
+        <span className='sr-only'>...loading</span>
+      </Spinner>
+    );
   }
 };
 
