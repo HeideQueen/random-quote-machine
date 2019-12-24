@@ -7,13 +7,18 @@ import './App.scss';
 const App = () => {
   const [newQuote, setNewQuote] = useState([]);
 
-  const getNewQuote = () => {
-    fetch(
-      'https://www.abbreviations.com/services/v2/quotes.php?uid=7073&tokenid=akivxDtjkVeBtEZi&searchtype=RANDOM&format=json'
-    )
-      .then(res => res.json())
-      .then(newQuote => setNewQuote([newQuote]))
-      .catch(error => console.log(error));
+  const getNewQuote = async () => {
+    try {
+      const blob = await fetch(
+        'https://www.abbreviations.com/services/v2/quotes.php?uid=7073&tokenid=akivxDtjkVeBtEZi&searchtype=RANDOM&format=json'
+      );
+
+      const data = await blob.json();
+
+      setNewQuote([data]);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -23,11 +28,7 @@ const App = () => {
   if (newQuote.length) {
     const { author, quote } = newQuote[0].result;
 
-    return (
-      <div id="app">
-        <QuoteBox author={author} quote={quote} getNewQuote={getNewQuote} />
-      </div>
-    );
+    return <QuoteBox author={author} quote={quote} getNewQuote={getNewQuote} />;
   } else {
     return <div>...loading</div>;
   }

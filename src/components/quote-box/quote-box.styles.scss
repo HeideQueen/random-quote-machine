@@ -1,0 +1,13 @@
+#quote-box {
+  width: 70%;
+  background-color: #eee;
+  padding: 30px;
+  border-radius: 5px;
+
+  #new-quote,
+  #tweet-quote {
+    background-color: palevioletred;
+    border: none;
+    outline: none;
+  }
+}
